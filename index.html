@@ -13,14 +13,60 @@
     />
 </head>
 <body>
-<div class = "search-container">
-<input class="input-bar" id="search-input" type="text" placeholder="video">
-<button class ="search-btn" id ="search-button">Search</button>
+<div class="navbar">
+<div class="toggle-btn">
+<!-- here we are making toggle-btn ourself not copieng from google icon-->
+<span></span>
+<span></span>
+<span></span>
 </div>
+<!-- toggle-btn ends here --> 
+<img src="./logo (1).png" class="logo" alt="logo"/>
+
+
+<div class = "search-container">
+<input class="search-bar" id="search-input" type="text" placeholder="search any video"/>
+<button class ="search-btn" id ="search-button"><img src="./search.png"/></button>
+</div>
+<div class="user-options">
+  <img src="./create.png" class="icon">
+  <img src="./grid.png" class="icon">
+  <img src="./bell.png" class="icon">
+</div>
+<div class="user-dp">
+<img src="./profile (1).png" class="dp"/>
+</div>
+</div><!-- navbar ends here -->
+<div class="side-bar">
+<a href="#" class="links active"><img src="./home.png">Home</a>
+<a href="#" class="links"><img src="./subscribe 2.png">Subscription</a>
+<a href="#" class="links"><img src="./shorts.png">Shorts</a>
+<hr class="seperator">
+<a href="#" class="links"><img src="./channel.png">Your Channel</a>
+<a href="#" class="links"><img src="./history.png">History</a>
+<a href="#" class="links"><img src="./yourVideo.png">Your Videos</a>
+<a href="#" class="links"><img src="./watchlater.png">Watch later</a>
+<a href="#" class="links"><img src="./history.png">History</a>
+<a href="#" class="links"><img src="./like.png">Liked Videos</a>
+</div>
+<!-- side bar ends here -->
+<div class="filters">
+<button class="filter-options">All</button>
+<button class="filter-options">music</button>
+<button class="filter-options">computer Programming</button>
+<button class="filter-options">podcast</button>
+<button class="filter-options">mix</button>
+<button class="filter-options">html</button>
+<button class="filter-options">css</button>
+<button class="filter-options">js tutorials</button>
+<button class="filter-options">entertainment</button>
+<button class="filter-options">AI</button>
+</div>
+
 <div class ="videos-container" id="container">
     <!-- here we will add the videos dynamically -->
 </div>
-    
+  <div class="spinner"></div>
 
 
     <script src="script.js"></script>

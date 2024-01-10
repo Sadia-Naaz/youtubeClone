@@ -170,3 +170,7 @@ searchButton.addEventListener("click", () => {
   const searchValue = searchInput.value;
   fetchSearchResults(searchValue);
 });
+const spinnigWheel = document.querySelector(".spinner");
+
+
+
