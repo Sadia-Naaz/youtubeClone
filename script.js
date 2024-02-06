@@ -1,9 +1,9 @@
-const API_KEY = "AIzaSyBmOfUnRNYc22e04ZmK79uRbPb6388K9AE";
+const API_KEY = "AIzaSyASLrY_Iy991zuLtrQP066_fNSsBD-Lqdo";
 const baseUrl = "https://www.googleapis.com/youtube/v3";
 
-const searchButton = document.getElementById("search-button");
-const searchInput = document.getElementById("search-input");
-const container = document.getElementById("container");
+let searchButton = document.querySelector(".search-btn");
+let searchInput = document.querySelector(".search-bar");
+let container = document.querySelector(".search-container");
 
 function calculateTheTimeGap(publishTime) {
   let publishDate = new Date(publishTime);
@@ -29,36 +29,40 @@ function calculateTheTimeGap(publishTime) {
   return `${Math.ceil(secondsGap / secondsPerYear)} years ago`;
 }
 function renderVideosOntoUI(videosList) {
+  console.log("renderVideosOntoUI is called");
   // videosList will be an array of video objects.
   container.innerHTML = "";
   videosList.forEach((video) => {
     const videoContainer = document.createElement("div");
-    videoContainer.className = "video";
-    videoContainer.innerHTML = `
+    videoContainer.className = "videos-container";
+    videoContainer.innerHTML = 
+    // arvinds sir's dynamic video display code 
+        `
         <img
             src="${video.snippet.thumbnails.high.url}"
             class="thumbnail"
             alt="thumbnail"
         />
-        <div class="bottom-container">
+        <div class="content">
             <div class="logo-container">
-            <img class="logo" src="${video.channelLogo}" alt="Channel Logo" />
+            <img class="channelIcon" src="${video.channelLogo}" alt="Channel Logo"/>
             </div>
             <div class="title-container">
             <p class="title">
                 ${video.snippet.title}
             </p>
-            <p class="gray-text">${video.snippet.channelTitle}</p>
-            <p class="gray-text">${
+            <p class="ChannleName">${video.snippet.channelTitle}</p>
+            <p class="ChannleName">${
               video.statistics.viewCount
             } . ${calculateTheTimeGap(video.snippet.publishTime)}</p>
             </div>
-        </div>`;
+        </div>`; 
     container.appendChild(videoContainer);
   });
 }
 
 async function fetchChannelLogo(channelId) {
+  console.log("fetchChannelLogo is called");
   const endpoint = `${baseUrl}/channels?key=${API_KEY}&id=${channelId}&part=snippet`;
 
   try {
@@ -73,6 +77,7 @@ async function fetchChannelLogo(channelId) {
  * this will take videoId and returns the statics of the video.
  */
 async function getVideoStatistics(videoId) {
+  console.log("getVideoStatistics fn is called");
   // https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDvo2p4xMEI3GC-PWH02_0OAIN1h88k4rE&part=statistics
   const endpoint = `${baseUrl}/videos?key=${API_KEY}&part=statistics&id=${videoId}`;
   try {
@@ -109,14 +114,17 @@ async function getVideoStatistics(videoId) {
 
 async function fetchSearchResults(searchString) {
   // searchString will the input entered by the user
-  const endpoint = `${baseUrl}/search?key=${API_KEY}&q=${searchString}&part=snippet&maxResults=2`;
+  const endpoint = `${baseUrl}/search?key=${API_KEY}&q=${searchString}&part=snippet&maxResults=50`;
   try {
     const response = await fetch(endpoint);
     const result = await response.json();
 
     for (let i = 0; i < result.items.length; i++) {
+
       let videoId = result.items[i].id.videoId;
       let channelId = result.items[i].snippet.channelId;
+      console.log(videoId);
+      console.log(channelId);
 
       let statistics = await getVideoStatistics(videoId);
       let channelLogo = await fetchChannelLogo(channelId);
@@ -166,11 +174,14 @@ async function fetchSearchResults(searchString) {
 //     },
 //     "statistics" :
 // }
-searchButton.addEventListener("click", () => {
-  const searchValue = searchInput.value;
-  fetchSearchResults(searchValue);
-});
-const spinnigWheel = document.querySelector(".spinner");
 
+searchButton.addEventListener("click", () => {
+  const searchValue = searchInput.value.trim(); // Trim whitespace from the search query
+  if (searchValue) {
+    fetchSearchResults(searchValue);
+  } else {
+    alert("Please enter a valid search query");
+  }
+});
 
 
