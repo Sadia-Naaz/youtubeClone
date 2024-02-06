@@ -78,6 +78,10 @@ top: 0;
   border-left: none;
   border-radius: 0   20px  20px 0 ;
 }
+.search-btn:hover{
+  background-color: #aa9d9d;
+  cursor: pointer;
+}
 .search-btn img{
   height: 100%;
 }
